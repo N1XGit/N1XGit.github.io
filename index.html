@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaderboard</title>
+    <script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-database.js"></script>
+    <style>
+        table { width: 50%; margin: 20px auto; border-collapse: collapse; }
+        table, th, td { border: 1px solid black; }
+        th, td { padding: 10px; text-align: center; }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center;">Leaderboard</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Score</th>
+            </tr>
+        </thead>
+        <tbody id="leaderboard"></tbody>
+    </table>
+
+    <script>
+        // Replace this with your Firebase config
+        const firebaseConfig = {
+            apiKey: "AIzaSyDNLVXEDy59rB_5r0aDl_WQspFs02nSOkc",
+            authDomain: "iot-game-scores.firebaseapp.com",
+            databaseURL: "https://iot-game-scores-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "iot-game-scores",
+            storageBucket: "iot-game-scores.firebasestorage.app",
+            messagingSenderId: "1054558532047",
+            appId: "1:1054558532047:web:3fafd231cafb221edca2ba"
+        };
+
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const database = firebase.database(app);
+
+        // Reference to your Firebase data (assuming you store scores under "scores" key)
+        const scoresRef = database.ref("scores");
+
+        // Fetch and display the scores
+        scoresRef.once("value", function(snapshot) {
+            const scores = snapshot.val();
+            const leaderboard = document.getElementById("leaderboard");
+            
+            for (const name in scores) {
+                const row = document.createElement("tr");
+                const nameCell = document.createElement("td");
+                const scoreCell = document.createElement("td");
+
+                nameCell.textContent = name;
+                scoreCell.textContent = scores[name];
+
+                row.appendChild(nameCell);
+                row.appendChild(scoreCell);
+                leaderboard.appendChild(row);
+            }
+        });
+    </script>
+</body>
+</html>
