@@ -3,6 +3,7 @@
 <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="scoresStyle.css">
       
       <title>Game Scores</title>
       
@@ -40,36 +41,28 @@
             const scoresRef = ref(database, '/');
 
             onValue(scoresRef, (snapshot) => {
-                console.log("Snapshot data:", snapshot.val()); // Debugging
-            
-                const scoresList = document.getElementById('scoresList');
-                scoresList.innerHTML = ''; // Clear before updating
-                const data = snapshot.val();
-    
-                if (data) {
-                        Object.entries(data).forEach(([name, score]) => {
-                        console.log(`Player: ${name}, Score: ${score}`); // Debugging
-      
-                        const listItem = document.createElement('li');
-                        listItem.textContent = `${name}: ${score}`;
-                        scoresList.appendChild(listItem);
-                        });
-                } else {
-                        scoresList.innerHTML = "<li>No scores found</li>";
-                }
-            });
-   
-            /*onValue(scoresRef, (snapshot) => {
-                  const scoresList = document.getElementById('scoresList');
-                  scoresList.innerHTML = ''; 
-                  const data = snapshot.val();
-                  for (const name in data) {
-                  const score = data[name];
+              const scoresList = document.getElementById('scoresList');
+              scoresList.innerHTML = ''; 
+              const data = snapshot.val();
+
+              if (data) {
+        
+                const sortedScores = Object.entries(data)
+                  .map(([name, score]) => ({ name, score })) 
+                  .sort((a, b) => b.score - a.score); 
+
+                sortedScores.forEach(({ name, score }) => {
                   const listItem = document.createElement('li');
                   listItem.textContent = `${name}: ${score}`;
+                  listItem.setAttribute('id','scoreElement')
                   scoresList.appendChild(listItem);
-                  }
-            }); */
+                  });
+              } else {
+                scoresList.innerHTML = "<li>No scores found</li>";
+              }
+            });
+   
+
       </script>
 </body>
 </html>
