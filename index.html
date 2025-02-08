@@ -37,7 +37,7 @@
             const database = getDatabase(app);
 
              
-            const scoresRef = ref(database, 'scores');
+            const scoresRef = ref(database, '/');
 
             onValue(scoresRef, (snapshot) => {
                 console.log("Snapshot data:", snapshot.val()); // Debugging
