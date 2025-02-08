@@ -1,1 +1,1 @@
-# N1XGit.github.io
+https://n1xgit.github.io/Scores/
