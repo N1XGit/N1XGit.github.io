@@ -39,8 +39,22 @@
              
             const scoresRef = ref(database, 'scores');
 
-   
             onValue(scoresRef, (snapshot) => {
+                  const scoresList = document.getElementById('scoresList');
+                  scoresList.innerHTML = ''; // Clear the list before updating
+                  const data = snapshot.val();
+                  if (data) {
+                        Object.entries(data).forEach(([name, score]) => {
+                        const listItem = document.createElement('li');
+                        listItem.textContent = `${name}: ${score}`;
+                        scoresList.appendChild(listItem);
+                        });
+                  } else {
+                          scoresList.innerHTML = "<li>No scores found</li>";
+                  }
+            });
+   
+            /*onValue(scoresRef, (snapshot) => {
                   const scoresList = document.getElementById('scoresList');
                   scoresList.innerHTML = ''; 
                   const data = snapshot.val();
@@ -50,7 +64,7 @@
                   listItem.textContent = `${name}: ${score}`;
                   scoresList.appendChild(listItem);
                   }
-            });
+            }); */
       </script>
 </body>
 </html>
