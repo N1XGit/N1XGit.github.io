@@ -40,18 +40,23 @@
             const scoresRef = ref(database, 'scores');
 
             onValue(scoresRef, (snapshot) => {
-                  const scoresList = document.getElementById('scoresList');
-                  scoresList.innerHTML = ''; // Clear the list before updating
-                  const data = snapshot.val();
-                  if (data) {
+                console.log("Snapshot data:", snapshot.val()); // Debugging
+            
+                const scoresList = document.getElementById('scoresList');
+                scoresList.innerHTML = ''; // Clear before updating
+                const data = snapshot.val();
+    
+                if (data) {
                         Object.entries(data).forEach(([name, score]) => {
+                        console.log(`Player: ${name}, Score: ${score}`); // Debugging
+      
                         const listItem = document.createElement('li');
                         listItem.textContent = `${name}: ${score}`;
                         scoresList.appendChild(listItem);
                         });
-                  } else {
-                          scoresList.innerHTML = "<li>No scores found</li>";
-                  }
+                } else {
+                        scoresList.innerHTML = "<li>No scores found</li>";
+                        }
             });
    
             /*onValue(scoresRef, (snapshot) => {
