@@ -55,7 +55,7 @@
                   const listItem = document.createElement('li');
                   listItem.textContent = `${name}: ${score}`;
                   listItem.setAttribute('id','scoreElement')
-                  listItem.appendChild(document.createTextNode("pts")
+                  listItem.appendChild(document.createTextNode("pts"));
 
                   if (index === 0) listItem.classList.add("gold"), listItem.appendChild(document.createTextNode(" 👑")), listItem.prepend(document.createTextNode("👑 "));
                   else if (index === 1) listItem.classList.add("silver");
