@@ -42,25 +42,31 @@
 
             onValue(scoresRef, (snapshot) => {
               const scoresList = document.getElementById('scoresList');
-              scoresList.innerHTML = ''; 
+              scoresList.innerHTML = '';
+
               const data = snapshot.val();
-
+  
               if (data) {
-        
                 const sortedScores = Object.entries(data)
-                  .map(([name, score]) => ({ name, score })) 
-                  .sort((a, b) => b.score - a.score); 
+                  .map(([name, score]) => ({ name, score }))
+                  .sort((a, b) => b.score - a.score);
 
-                sortedScores.forEach(({ name, score }) => {
+                sortedScores.forEach(({ name, score }, index) => {
                   const listItem = document.createElement('li');
                   listItem.textContent = `${name}: ${score}`;
                   listItem.setAttribute('id','scoreElement')
+
+                  if (index === 0) listItem.classList.add("gold"), listItem.appendChild(document.createTextNode(" 👑")), listItem.prepend(document.createTextNode("👑 "));
+                  else if (index === 1) listItem.classList.add("silver");
+                  else if (index === 2) listItem.classList.add("bronze");
+
                   scoresList.appendChild(listItem);
-                  });
+                });
               } else {
                 scoresList.innerHTML = "<li>No scores found</li>";
               }
             });
+
    
 
       </script>
