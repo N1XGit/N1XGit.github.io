@@ -10,45 +10,45 @@
       <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database.js"></script>
 </head>
 <body>
-    <h1>Game Scores</h1>
+      <h1>Game Scores</h1>
       <ul id="scoresList"></ul>
 
       <script type="module">
     // Import the functions you need from the SDKs you need
         //import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
-        import { initializeApp } from "firebase/app";
-        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-database.js";
+            import { initializeApp } from "firebase/app";
+            import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-database.js";
 
     // Your web app's Firebase configuration
-        const firebaseConfig = {
-              apiKey: "AIzaSyDNLVXEDy59rB_5r0aDl_WQspFs02nSOkc",
-              authDomain: "iot-game-scores.firebaseapp.com",
-              databaseURL: "https://iot-game-scores-default-rtdb.europe-west1.firebasedatabase.app",
-              projectId: "iot-game-scores",
-              storageBucket: "iot-game-scores.firebasestorage.app",
-              messagingSenderId: "1054558532047",
-              appId: "1:1054558532047:web:3fafd231cafb221edca2ba"
-            };
+            const firebaseConfig = {
+                  apiKey: "AIzaSyDNLVXEDy59rB_5r0aDl_WQspFs02nSOkc",
+                  authDomain: "iot-game-scores.firebaseapp.com",
+                  databaseURL: "https://iot-game-scores-default-rtdb.europe-west1.firebasedatabase.app",
+                  projectId: "iot-game-scores",
+                  storageBucket: "iot-game-scores.firebasestorage.app",
+                  messagingSenderId: "1054558532047",
+                  appId: "1:1054558532047:web:3fafd231cafb221edca2ba"
+                  };
 
-    // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const database = getDatabase(app);
+         // Initialize Firebase
+            const app = initializeApp(firebaseConfig);
+            const database = getDatabase(app);
 
-    // Reference to the scores node
-        const scoresRef = ref(database, 'scores');
+             // Reference to the scores node
+            const scoresRef = ref(database, 'scores');
 
     // Listen for changes to the scores data
-        onValue(scoresRef, (snapshot) => {
-            const scoresList = document.getElementById('scoresList');
-            scoresList.innerHTML = ''; // Clear the list before updating
-            const data = snapshot.val();
-            for (const name in data) {
-            const score = data[name];
-            const listItem = document.createElement('li');
-            listItem.textContent = `${name}: ${score}`;
-            scoresList.appendChild(listItem);
-          }
-        });
-  </script>
+            onValue(scoresRef, (snapshot) => {
+                  const scoresList = document.getElementById('scoresList');
+                  scoresList.innerHTML = ''; // Clear the list before updating
+                  const data = snapshot.val();
+                  for (const name in data) {
+                  const score = data[name];
+                  const listItem = document.createElement('li');
+                  listItem.textContent = `${name}: ${score}`;
+                  scoresList.appendChild(listItem);
+                  }
+            });
+      </script>
 </body>
 </html>
