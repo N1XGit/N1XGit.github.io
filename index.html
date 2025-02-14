@@ -38,7 +38,7 @@
             const database = getDatabase(app);
 
              
-            const scoresRef = ref(database, '/scores.json');
+            const scoresRef = ref(database, '/scores');
 
             onValue(scoresRef, (snapshot) => {
               const scoresList = document.getElementById('scoresList');
